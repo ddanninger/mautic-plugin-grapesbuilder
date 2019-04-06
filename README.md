@@ -1,2 +1,2 @@
-# mautic-plugin-grapesbuilder
+# mautic-plugin-grapesbuilder in development
 Grapesjs integration for Mautic

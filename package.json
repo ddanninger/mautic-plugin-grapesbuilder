@@ -1,0 +1,48 @@
+{
+  "name": "mauticgrapesbuilderbundle",
+  "version": "0.1.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "node-sass Assets/src/style/builder.scss Assets/dist/css/builder.css --output-style compressed",
+    "build:grapesjs:css": "node-sass --importer node_modules/node-sass-import Assets/src/style/grapes.scss Assets/dist/css/grapes.css --output-style compressed",
+    "build": "cross-env WEBPACK_ENV=prod & webpack && npm run build:css && npm run build:grapesjs:css"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.3",
+    "babel-loader": "^8.0.5",
+    "del": "^2.0.2",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^6.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-csso": "^2.0.0",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-sass": "^2.0.0",
+    "gulp-uglify": "^2.0.0",
+    "node-sass": "^4.11.0",
+    "node-sass-import": "^2.0.1",
+    "run-sequence": "^1.2.2",
+    "uglifyjs-webpack-plugin": "^2.1.2",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
+  },
+  "dependencies": {
+    "grapesjs": "^0.14.57",
+    "grapesjs-custom-code": "^0.1.1",
+    "grapesjs-lory-slider": "^0.1.5",
+    "grapesjs-mjml": "0.0.31",
+    "grapesjs-parser-postcss": "^0.1.1",
+    "grapesjs-preset-newsletter": "^0.2.20",
+    "grapesjs-preset-webpage": "^0.1.10",
+    "grapesjs-tabs": "^0.1.2",
+    "grapesjs-tooltip": "^0.1.5",
+    "grapesjs-touch": "^0.1.1",
+    "grapesjs-tui-image-editor": "^0.1.2",
+    "juice": "^5.2.0"
+  }
+}

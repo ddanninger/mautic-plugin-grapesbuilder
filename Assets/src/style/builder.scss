@@ -1,0 +1,24 @@
+.content-body {
+    height: 100vh;
+  }
+  .page-header {
+      display: none;
+  }
+  
+  .grapesbuilder-panel {
+    height: 100%;
+  
+    .panel-body {
+      height: 62px;
+    }
+  
+    .page-list {
+      height: calc(100% - 62px);
+    }
+  
+    .grapesbuilder-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  }
