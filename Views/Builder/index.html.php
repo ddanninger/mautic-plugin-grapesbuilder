@@ -15,7 +15,8 @@ $view->extend('MauticCoreBundle:Default:content.html.php');
     ]
 ); ?>
     <div class="page-list">
-        <iframe src="<?php echo $view['router']->url('mautic_grapesbuilder_internal', ['objectId' => $objectId]); ?>" class="grapesbuilder-iframe">
+        <iframe src="<?php echo $view['router']->url('mautic_grapesbuilder_internal', ['objectType' => $objectType, 'callView' => $callView, 'objectId' => $objectId]); ?>"
+        class="grapesbuilder-iframe">
         </iframe>
     </div>
 </div>

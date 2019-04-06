@@ -1,6 +1,6 @@
 <?php return ['name' => 'Grapesbuilder Bundle',
     'description' => 'Grapesjs Library integration (https://grapesjs.com/)',
-    'version' => '0.1.1',
+    'version' => '0.1.2',
     'url' => 'https://grapesjs.com/',
     'author' => 'Dominik Danninger',
 
@@ -8,14 +8,22 @@
         'main' => [
             'mautic_grapesbuilder_index' => [
                 'method' => 'GET',
-                'path' => '/grapesbuilder/{objectId}',
-                'controller' => 'MauticGrapesbuilderBundle:Grapesbuilder:index'
+                'path' => '/grapesbuilder/{objectType}/{callView}/{objectId}',
+                'controller' => 'MauticGrapesbuilderBundle:Grapesbuilder:index',
+                'requirements' => array(
+                    'objectType' => 'page|email',
+                    'callView' => 'normal|mjml|html',
+                ),
             ],
             'mautic_grapesbuilder_internal' => [
                 'method' => 'GET',
-                'path' => '/grapesbuilder_internal/{objectId}',
-                'controller' => 'MauticGrapesbuilderBundle:Grapesbuilder:internal'
-            ]
+                'path' => '/grapesbuilder_internal/{objectType}/{callView}/{objectId}',
+                'controller' => 'MauticGrapesbuilderBundle:Grapesbuilder:internal',
+                'requirements' => array(
+                    'objectType' => 'page|email',
+                    'callView' => 'normal|mjml|html',
+                ),
+            ],
         ],
     ],
     'services' => [

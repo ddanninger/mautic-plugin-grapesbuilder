@@ -5,7 +5,6 @@ use Mautic\CoreBundle\CoreEvents;
 use Mautic\CoreBundle\EventListener\CommonSubscriber;
 use Mautic\CoreBundle\Event\CustomButtonEvent;
 use Mautic\CoreBundle\Templating\Helper\ButtonHelper;
-use Mautic\LeadBundle\Entity\Lead;
 use Mautic\PageBundle\Entity\Page;
 use Mautic\PluginBundle\Helper\IntegrationHelper;
 
@@ -50,31 +49,55 @@ class ButtonSubscriber extends CommonSubscriber
             );
             return;
         }
-        
+
         if ($item = $event->getItem()) {
             $this->logger->info($event->getItem());
             if ($item instanceof Page) {
-                $this->logger->info("Instance is page");
-                $addBtn = [
-                    'attr' => [
-                        'href' => $this->router->generate(
-                            'mautic_grapesbuilder_index',
-                            ['objectId' => $event->getItem()->getId()]
-                        ),
-                    ],
-                    'btnText' => $this->translator->trans('mautic.plugin.grapesbuilder.open'),
-                    'iconClass' => 'fa fa-star',
-                    'primary' => true,
-                    'priority' => 1,
-                ];
+                /*$addBtn = [
+                'attr' => [
+                'href' => $this->router->generate(
+                'mautic_grapesbuilder_index',
+                ['objectType' => 'page', 'objectId' => $event->getItem()->getId()]
+                ),
+                ],
+                'btnText' => $this->translator->trans('mautic.plugin.grapesbuilder.open'),
+                'iconClass' => 'fa fa-star',
+                'primary' => true,
+                'priority' => 1,
+                ];*/
 
-                // Inject a button into the page actions for the specified route
-                $event
-                    ->addButton(
-                        $addBtn,
-                        ButtonHelper::LOCATION_LIST_ACTIONS
-                    );
+                $href = $this->router->generate(
+                    'mautic_grapesbuilder_index',
+                    ['objectType' => 'page', 'callView' => 'normal', 'objectId' => $event->getItem()->getId()]);
+                $this->addBtn($event, $this->translator->trans('mautic.plugin.grapesbuilder.open'), $href);
+            } else if ($item instanceof Email) {
+                $this->addBtn($event, $this->translator->trans('mautic.plugin.grapesbuilder.open'), $this->router->generate(
+                    'mautic_grapesbuilder_index',
+                    ['objectType' => 'email', 'callView' => 'mjml', 'objectId' => $event->getItem()->getId()]));
+                $this->addBtn($event, $this->translator->trans('mautic.plugin.grapesbuilder.open'), $this->router->generate(
+                    'mautic_grapesbuilder_index',
+                    ['objectType' => 'email', 'callView' => 'html', 'objectId' => $event->getItem()->getId()]), 2);
             }
         }
+    }
+
+    private function addBtn(CustomButtonEvent $event, $btnText, $href, $priority = 1)
+    {
+        $addBtn = [
+            'attr' => [
+                'href' => $href,
+            ],
+            'btnText' => $btnText,
+            'iconClass' => 'fa fa-cube',
+            'primary' => true,
+            'priority' => $priority,
+        ];
+
+        // Inject a button into the page actions for the specified route
+        $event
+            ->addButton(
+                $addBtn,
+                ButtonHelper::LOCATION_LIST_ACTIONS
+            );
     }
 }
