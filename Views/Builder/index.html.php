@@ -4,24 +4,37 @@ $view->extend('MauticCoreBundle:Default:content.html.php');
 ?>
 
 <?php echo $view['assets']->includeStylesheet('plugins/MauticGrapesbuilderBundle/Assets/dist/css/builder.css'); ?>
-<?php $view['assets']->addScript('plugins/MauticGrapesbuilderBundle/Assets/dist/js/mauticgrapesbuilderbundle.min.js'); ?>
+<?php $view['assets']->addScript('plugins/MauticGrapesbuilderBundle/Assets/dist/js/mauticgrapesbuilderbundle.min.js');?>
 
-<?php 
+<?php
 $variantParent = $entity->getVariantParent();
-$subheader     = '';
-if ($variantParent) {
-    $subheader = '<div><span class="small">'.$view['translator']->trans('mautic.core.variant_of', [
-                    '%name%'   => $entity->getTitle(),
-                    '%parent%' => $variantParent->getTitle(),
-                ]).'</span></div>';
-} elseif ($entity->isVariant(false)) {
-    $subheader = '<div><span class="small">'.$view['translator']->trans('mautic.page.form.has_variants').'</span></div>';
+
+if ($objectType === 'page') {
+    $subheader = '';
+    if ($variantParent) {
+        $subheader = '<div><span class="small">' . $view['translator']->trans('mautic.core.variant_of', [
+            '%name%' => $entity->getTitle(),
+            '%parent%' => $variantParent->getTitle(),
+        ]) . '</span></div>';
+    } elseif ($entity->isVariant(false)) {
+        $subheader = '<div><span class="small">' . $view['translator']->trans('mautic.page.form.has_variants') . '</span></div>';
+    }
+
+    $header = $view['translator']->trans('mautic.page.header.edit',
+        ['%name%' => $entity->getTitle()]);
+
+} else {
+
+    $subheader = ($variantParent) ? '<div><span class="small">' . $view['translator']->trans('mautic.core.variant_of', [
+        '%name%' => $entity->getName(),
+        '%parent%' => $variantParent->getName(),
+    ]) . '</span></div>' : '';
+
+    $header = $view['translator']->trans('mautic.email.header.edit',
+        ['%name%' => $entity->getName()]);
+
+    $view['slots']->set('headerTitle', $header . $subheader);
 }
-
-$header = $view['translator']->trans('mautic.page.header.edit',
-    ['%name%' => $entity->getTitle()]);
-
-$view['slots']->set('headerTitle', $header.$subheader); 
 ?>
 
 <!-- hidden form  -->

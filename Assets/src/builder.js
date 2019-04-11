@@ -88,15 +88,15 @@ class GrapesBuilder {
   }
 
   registerSaveBtn(formName) {
-    mQuery('#page_buttons_save_toolbar')
+    mQuery(`#${formName}_buttons_save_toolbar`)
       .off('click')
       .on('click', e => {
-        this.submitForm(formName, '#page_buttons_save_toolbar', 'save');
+        this.submitForm(formName, `#${formName}_buttons_save_toolbar`, 'save');
       });
-    mQuery('#page_buttons_apply_toolbar')
+    mQuery(`#${formName}_buttons_apply_toolbar`)
       .off('click')
       .on('click', e => {
-        this.applyForm(formName, '#page_buttons_apply_toolbar', 'apply');
+        this.applyForm(formName, `#${formName}_buttons_apply_toolbar`, 'apply');
       });
   }
 
