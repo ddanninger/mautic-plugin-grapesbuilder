@@ -9,7 +9,8 @@ Grapesjs integration for Mautic
 
 1. Open the Grapebuilder via the list actions
 2. Modify & Save
-3. Be happy =)
+3. **BE AWARE:** After modification via grapesjs the mode will be changed to "code mode"
+4. Be happy =)
 
 ## Feature Roadmap
 
@@ -17,6 +18,7 @@ Grapesjs integration for Mautic
 2. ~~Implement Grapesjs for Emails~~
 3. ~~Save content via original forms~~
 4. MJML Integration
+5. Themes should be still editable in the original Landingpage without programmatically changing to "code mode"
 
 ## Support Grapesjs
 

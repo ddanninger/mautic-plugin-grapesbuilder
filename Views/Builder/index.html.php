@@ -30,14 +30,6 @@ $view['slots']->set('headerTitle', $header.$subheader);
 </div>
 
 <div class="panel panel-default bdr-t-wdh-0 mb-0 grapesbuilder-panel">
-<?php 
-// @todo change to pageheader.html.php 
-/*echo $view->render(
-    'MauticCoreBundle:Helper:list_toolbar.html.php',
-    [
-        'action' => $currentRoute,
-    ]
-); */ ?>
     <div class="page-list">
         <iframe style="width: 100%; height: 100%; border: none;" id="grapesbuilder-iframe" src="<?php echo $view['router']->url('mautic_grapesbuilder_internal', ['objectType' => $objectType, 'objectId' => $objectId]); ?>"
         class="grapesbuilder-iframe">

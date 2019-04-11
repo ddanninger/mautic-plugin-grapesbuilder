@@ -35,22 +35,6 @@ class ButtonSubscriber extends CommonSubscriber
      */
     public function injectViewButtons(CustomButtonEvent $event)
     {
-        if ($event->checkRouteContext('mautic_grapesbuilder_index')) {
-            $event->addButton(
-                [
-                    'attr' => [
-                        'class' => 'btn btn-default btn-save btn-copy',
-                        'id' => 'btn-grapesbuilder-save',
-                    ],
-                    'btnText' => $this->translator->trans('mautic.plugin.grapesbuilder.save'),
-                    'iconClass' => 'fa fa-save',
-                    'priority' => 255,
-                ],
-                ButtonHelper::LOCATION_TOOLBAR_ACTIONS
-            );
-            return;
-        }
-
         if ($item = $event->getItem()) {
             $this->logger->info($event->getItem());
             if ($item instanceof Page) {
