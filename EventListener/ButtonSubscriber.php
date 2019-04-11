@@ -5,6 +5,7 @@ use Mautic\CoreBundle\CoreEvents;
 use Mautic\CoreBundle\EventListener\CommonSubscriber;
 use Mautic\CoreBundle\Event\CustomButtonEvent;
 use Mautic\CoreBundle\Templating\Helper\ButtonHelper;
+use Mautic\EmailBundle\Entity\Email;
 use Mautic\PageBundle\Entity\Page;
 use Mautic\PluginBundle\Helper\IntegrationHelper;
 
@@ -53,30 +54,14 @@ class ButtonSubscriber extends CommonSubscriber
         if ($item = $event->getItem()) {
             $this->logger->info($event->getItem());
             if ($item instanceof Page) {
-                /*$addBtn = [
-                'attr' => [
-                'href' => $this->router->generate(
-                'mautic_grapesbuilder_index',
-                ['objectType' => 'page', 'objectId' => $event->getItem()->getId()]
-                ),
-                ],
-                'btnText' => $this->translator->trans('mautic.plugin.grapesbuilder.open'),
-                'iconClass' => 'fa fa-star',
-                'primary' => true,
-                'priority' => 1,
-                ];*/
-
-                $href = $this->router->generate(
-                    'mautic_grapesbuilder_index',
-                    ['objectType' => 'page', 'callView' => 'normal', 'objectId' => $event->getItem()->getId()]);
-                $this->addBtn($event, $this->translator->trans('mautic.plugin.grapesbuilder.open'), $href);
-            } else if ($item instanceof Email) {
                 $this->addBtn($event, $this->translator->trans('mautic.plugin.grapesbuilder.open'), $this->router->generate(
                     'mautic_grapesbuilder_index',
-                    ['objectType' => 'email', 'callView' => 'mjml', 'objectId' => $event->getItem()->getId()]));
+                    ['objectType' => 'page', 'objectId' => $event->getItem()->getId()]));
+            } elseif ($item instanceof Email) {
+                // @Todo -> show only one button after mjml can be autodetected
                 $this->addBtn($event, $this->translator->trans('mautic.plugin.grapesbuilder.open'), $this->router->generate(
                     'mautic_grapesbuilder_index',
-                    ['objectType' => 'email', 'callView' => 'html', 'objectId' => $event->getItem()->getId()]), 2);
+                    ['objectType' => 'email', 'objectId' => $event->getItem()->getId()]));
             }
         }
     }

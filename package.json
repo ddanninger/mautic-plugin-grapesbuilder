@@ -1,15 +1,14 @@
 {
   "name": "mauticgrapesbuilderbundle",
-  "version": "0.1.2",
-  "description": "",
-  "main": "index.js",
+  "version": "0.1.4",
+  "description": "Grapesjs integration for Mautic",
   "scripts": {
     "build:css": "node-sass Assets/src/style/builder.scss Assets/dist/css/builder.css --output-style compressed",
     "build:grapesjs:css": "node-sass --importer node_modules/node-sass-import Assets/src/style/grapes.scss Assets/dist/css/grapes.css --output-style compressed",
     "build": "cross-env WEBPACK_ENV=prod & webpack && npm run build:css && npm run build:grapesjs:css"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Dominik Danninger <ddanninger@gmail.com>",
+  "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.4.3",
     "@babel/core": "^7.4.3",

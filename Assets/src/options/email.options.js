@@ -1,5 +1,6 @@
 export const emailMjmlOptions = {
-  plugins: ['grapesjs-mjml', 'gjs-plugin-ckeditor'],
+  // plugins: ['grapesjs-mjml', 'gjs-plugin-ckeditor'],
+  plugins: ['grapesjs-mjml'],
   pluginsOpts: {
     'grapesjs-mjml': {},
     'gjs-plugin-ckeditor': ckEditorPluginOpts
@@ -7,7 +8,8 @@ export const emailMjmlOptions = {
 };
 
 export const emailHtmlOptions = {
-  plugins: ['gjs-preset-newsletter', 'gjs-plugin-ckeditor'],
+  // plugins: ['gjs-preset-newsletter', 'gjs-plugin-ckeditor'],
+  plugins: ['gjs-preset-newsletter'],
   pluginsOpts: {
     'gjs-preset-newsletter': {
       modalLabelImport: 'Paste all your code here below and click import',
@@ -34,7 +36,7 @@ const ckEditorPluginOpts = {
     startupFocus: true,
     extraAllowedContent: '*(*);*{*}', // Allows any class and any inline style
     allowedContent: true, // Disable auto-formatting, class removing, etc.
-    enterMode: CKEDITOR.ENTER_BR,
+    // enterMode: CKEDITOR.ENTER_BR,
     extraPlugins: 'sharedspace,justify,colorbutton,panelbutton,font',
     toolbar: [
       { name: 'styles', items: ['Font', 'FontSize'] },

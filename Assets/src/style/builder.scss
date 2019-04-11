@@ -1,24 +1,28 @@
 .content-body {
-    height: 100vh;
+  height: 100vh;
+}
+.page-header {
+  // display: none;
+}
+
+.grapesbuilder-panel {
+  height: 100%;
+
+  .panel-body {
+    height: 62px;
   }
-  .page-header {
-      display: none;
+
+  .page-list {
+    height: calc(100% - 63px);
   }
-  
-  .grapesbuilder-panel {
+
+  .grapesbuilder-iframe {
+    width: 100%;
     height: 100%;
-  
-    .panel-body {
-      height: 62px;
-    }
-  
-    .page-list {
-      height: calc(100% - 62px);
-    }
-  
-    .grapesbuilder-iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
+    border: none;
   }
+}
+
+#page_buttons_builder_toolbar {
+  display: none !important;
+}

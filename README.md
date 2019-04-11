@@ -1,6 +1,23 @@
 # mautic-plugin-grapesbuilder in development
 Grapesjs integration for Mautic
 
+## Installation
+
+@TODO
+
+## Mautic Plugin
+
+1. Open the Grapebuilder via the list actions
+2. Modify & Save
+3. Be happy =)
+
+## Feature Roadmap
+
+1. ~~Implement Grapesjs for Landing Pages~~
+2. ~~Implement Grapesjs for Emails~~
+3. ~~Save content via original forms~~
+4. MJML Integration
+
 ## Support Grapesjs
 
 Big thanks to the team of https://grapesjs.com/ ... please consider to support the grapesjs project.. with a donation of your choice or become a backer/sponsor via [Open Collective](https://opencollective.com/grapesjs)

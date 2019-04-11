@@ -19,12 +19,14 @@ class GrapesBuilder {
   constructor() {}
 
   initEditor(opts = {}) {
-    this.editor = grapesjs.init({
-      ...this.defaultOpts,
-      ...opts
-    });
-    console.log('initEditor', this.editor);
-    $('#gjs').show();
+    if (!this.editor) {
+      this.editor = grapesjs.init({
+        ...this.defaultOpts,
+        ...opts
+      });
+      console.log('initEditor', this.editor);
+      mQuery('#gjs').show();
+    }
     return this.editor;
   }
 
@@ -84,12 +86,92 @@ class GrapesBuilder {
   hasEditor() {
     return !!this.editor;
   }
+
+  registerSaveBtn(formName) {
+    mQuery('#page_buttons_save_toolbar')
+      .off('click')
+      .on('click', e => {
+        this.submitForm(formName, '#page_buttons_save_toolbar', 'save');
+      });
+    mQuery('#page_buttons_apply_toolbar')
+      .off('click')
+      .on('click', e => {
+        this.applyForm(formName, '#page_buttons_apply_toolbar', 'apply');
+      });
+  }
+
+  updateCustomHtml(grapesBuilder) {
+    const html = grapesBuilder.runCommand('gjs-get-inlined-html');
+    const textarea = mQuery('textarea.builder-html');
+    textarea.val(html);
+  }
+
+  applyForm(formName, btn, type) {
+    // const bgApplyBtn = mQuery('#page_buttons_apply');
+    if (document.getElementById('grapesbuilder-iframe')) {
+      const grapesBuilder = document
+        .getElementById('grapesbuilder-iframe')
+        .contentWindow.Mautic.getGrapesBuilder();
+      if (grapesBuilder && grapesBuilder.hasEditor()) {
+        const form = mQuery('form[name=' + formName + ']');
+        this.updateCustomHtml(grapesBuilder);
+        this.ajaxForm(form, btn);
+      }
+    }
+  }
+
+  ajaxForm(form, btn) {
+    Mautic.activateButtonLoadingIndicator(mQuery(btn));
+    mQuery
+      .ajax({
+        type: form.attr('method'),
+        url: form.attr('action'),
+        data: form.serialize()
+      })
+      .done(function(data) {
+        Mautic.removeButtonLoadingIndicator(mQuery(btn));
+      })
+      .fail(function(data) {
+        Mautic.removeButtonLoadingIndicator(mQuery(btn));
+      });
+  }
+
+  submitForm(formName, btn, type) {
+    if (document.getElementById('grapesbuilder-iframe')) {
+      const grapesBuilder = document
+        .getElementById('grapesbuilder-iframe')
+        .contentWindow.Mautic.getGrapesBuilder();
+      if (grapesBuilder && grapesBuilder.hasEditor()) {
+        const form = mQuery('form[name=' + formName + ']');
+        this.updateCustomHtml(grapesBuilder);
+        Mautic.activateButtonLoadingIndicator(mQuery(btn));
+        this.submissionOn(form, type);
+        form.submit();
+        this.submissionOff();
+      }
+    }
+  }
+
+  submissionOn(form, type) {
+    var inBuilder = mQuery(`<input type="hidden" name="page[buttons][${type}]" value="1" />`);
+    form.append(inBuilder);
+  }
+
+  submissionOff() {
+    mQuery('input[name="page[buttons][save]"]').remove();
+  }
 }
 
 const grapesBuilder = new GrapesBuilder();
 
-Mautic.openGrapesPrerendererOnLoad = (container, response) => {
-  console.log('Mautic.openGrapesPrerenderer', container, response);
+Mautic.openGrapesPageOnLoad = (container, response) => {
+  grapesBuilder.registerSaveBtn('page');
+  console.log('Mautic.openGrapesPageOnLoad', container, response);
+};
+
+Mautic.openGrapesEmailOnLoad = (container, response) => {
+  grapesBuilder.registerSaveBtn('emailform');
+  console.log('Mautic.openGrapesEmailOnLoad', container, response);
 };
 
 Mautic.openGrapesPagebuilderOnLoad = (container, response) => {
@@ -112,4 +194,8 @@ Mautic.getGrapesContent = () => {
     const html = grapesBuilder.runCommand('gjs-get-inlined-html');
     console.log('getGrapesContent', html);
   }
+};
+
+Mautic.getGrapesBuilder = () => {
+  return grapesBuilder;
 };
