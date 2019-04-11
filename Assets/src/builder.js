@@ -88,6 +88,7 @@ class GrapesBuilder {
   }
 
   registerSaveBtn(formName) {
+    console.log('registerSaveBtn', `#${formName}_buttons_save_toolbar`)
     mQuery(`#${formName}_buttons_save_toolbar`)
       .off('click')
       .on('click', e => {
