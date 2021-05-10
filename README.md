@@ -1,4 +1,4 @@
-#  @PAUSED since mautic is implementing it -> see https://github.com/mautic/mautic/issues/7360 mautic-plugin-grapesbuilder in development
+#  ARCHIVED since mautic is implementing it -> see https://github.com/mautic/mautic/issues/7360 mautic-plugin-grapesbuilder in development
 Grapesjs integration for Mautic
 
 ## Installation
